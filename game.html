@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Catch The Ball</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #0f0c29, #302b63, #24243e);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    canvas {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid #00ffe0;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00ffe0, 0 0 30px #00e5ff;
+    }
+    #score {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 20px;
+      color: #00ffe0;
+      text-shadow: 0 0 10px #00ffe0, 0 0 20px #00e5ff;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="score">Score: 0</div>
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let paddle = { x: 150, y: 560, w: 100, h: 15, speed: 7 };
+    let ball = { x: 200, y: 0, r: 12, dy: 4 };
+    let score = 0;
+    let gameOver = false;
+
+    // Gambar Paddle
+    function drawPaddle() {
+      ctx.fillStyle = "#00ffe0";
+      ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
+    }
+
+    // Gambar Bola
+    function drawBall() {
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+      ctx.fillStyle = "#00e5ff";
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    // Update Bola
+    function updateBall() {
+      ball.y += ball.dy;
+      if (ball.y + ball.r >= paddle.y && ball.x >= paddle.x && ball.x <= paddle.x + paddle.w) {
+        ball.y = 0;
+        ball.x = Math.random() * (canvas.width - ball.r * 2) + ball.r;
+        score++;
+        document.getElementById("score").innerText = "Score: " + score;
+        ball.dy += 0.2; // makin lama makin cepat
+      }
+      if (ball.y > canvas.height) {
+        gameOver = true;
+      }
+    }
+
+    // Gambar Game
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (!gameOver) {
+        drawPaddle();
+        drawBall();
+        updateBall();
+      } else {
+        ctx.fillStyle = "#00ffe0";
+        ctx.font = "30px Arial";
+        ctx.fillText("GAME OVER", 120, 300);
+      }
+    }
+
+    // Kontrol Keyboard
+    document.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft" && paddle.x > 0) paddle.x -= paddle.speed;
+      if (e.key === "ArrowRight" && paddle.x + paddle.w < canvas.width) paddle.x += paddle.speed;
+    });
+
+    // Kontrol Sentuh (HP)
+    canvas.addEventListener("touchstart", e => {
+      let touchX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+      paddle.x = touchX - paddle.w / 2;
+    });
+    canvas.addEventListener("touchmove", e => {
+      let touchX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+      paddle.x = touchX - paddle.w / 2;
+    });
+
+    // Loop Game
+    function gameLoop() {
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+    gameLoop();
+  </script>
+</body>
+</html>

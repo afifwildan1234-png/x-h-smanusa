@@ -1,0 +1,248 @@
+/* ==== Global ==== */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top left, #0f0c29, #302b63, #24243e);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  text-shadow: 0 0 10px #00ffe0, 0 0 20px #00e5ff;
+}
+
+/* ==== Navbar ==== */
+header {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+header h1 {
+  margin: 0;
+  color: #00ffcc;
+  font-size: 1.8rem;
+}
+
+nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+nav a:hover {
+  color: #00ffcc;
+  text-shadow: 0 0 8px #00ffcc, 0 0 15px #00e5ff;
+}
+
+/* ==== Section ==== */
+.section {
+  padding: 80px 20px;
+}
+
+/* ==== Button Interaktif ==== */
+button {
+  background: transparent;
+  border: 2px solid #00ffe0;
+  color: #00ffe0;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px #00ffe0;
+}
+
+button:hover {
+  background: #00ffe0;
+  color: #0f0c29;
+  box-shadow: 0 0 20px #00ffe0, 0 0 40px #00e5ff;
+  transform: scale(1.1);
+}
+
+/* ==== Struktur Kelas Card ==== */
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 25px;
+  border-radius: 15px;
+  width: 200px;
+  transition: all 0.4s;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0,255,204,0.2);
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 0 15px #00ffcc, 0 0 30px #00e5ff;
+}
+
+/* ==== Galeri ==== */
+.gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.gallery img {
+  width: 220px;
+  border-radius: 15px;
+  transition: all 0.4s;
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+}
+
+.gallery img:hover {
+  transform: scale(1.15) rotate(2deg);
+  box-shadow: 0 0 20px #00ffe0, 0 0 40px #00e5ff;
+}
+
+/* ==== Footer ==== */
+footer {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* ==== Background Animasi Bintang ==== */
+.stars, .twinkling {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  z-index: -1;
+}
+
+.stars {
+  background: url("https://www.script-tutorials.com/demos/360/images/stars.png") repeat;
+}
+
+.twinkling {
+  background: url("https://www.script-tutorials.com/demos/360/images/twinkling.png") repeat;
+  animation: move 200s linear infinite;
+}
+
+@keyframes move {
+  from { background-position: 0 0; }
+  to { background-position: -10000px 5000px; }
+}
+
+/* === Welcome Screen === */
+#welcome {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+/* Neon Effect */
+.neon-text {
+  font-size: 2.2rem;
+  color: #00faff;
+  text-shadow: 
+    0 0 5px #00faff,
+    0 0 10px #00faff,
+    0 0 20px #00e5ff,
+    0 0 40px #00e5ff,
+    0 0 80px #00d9ff;
+  white-space: pre-line; /* biar bisa ganti baris */
+  text-align: center;
+}
+
+/* Hilang pelan setelah selesai */
+#welcome.fade-out {
+  animation: fadeOut 2s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Konten utama muncul setelah welcome hilang */
+body > *:not(#welcome) {
+  opacity: 0;
+  animation: fadeIn 2s ease 5s forwards; /* delay 5 detik */
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.org-horizontal {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap; /* biar rapi kalau di HP */
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.org-horizontal .card {
+  width: 180px;
+  text-align: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px #00ffe0;
+  transition: transform 0.3s ease;
+}
+
+.org-horizontal .card:hover {
+  transform: translateY(-8px) scale(1.05);
+}
+
+.org-horizontal .card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 2px solid #00ffe0;
+  box-shadow: 0 0 10px #00ffe0, 0 0 20px #00e5ff;
+}
+
+
+#game-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #00ffe0;
+  color: #0f0c29;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 0 10px #00ffe0, 0 0 20px #00e5ff;
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+#game-btn:hover {
+  background: #0f0c29;
+  color: #00ffe0;
+  box-shadow: 0 0 15px #00ffe0, 0 0 30px #00e5ff;
+}
